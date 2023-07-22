@@ -6,19 +6,15 @@ const app = express();
 app.use(express.json());
 
 app.get('/api', (req, res) => {
-  // Read the JSON data from the file
   fs.readFile('serverData.json', 'utf8', (err, data) => {
     if (err) {
-      // In case of an error, return an error response
       return res.status(500).json({ error: 'Error reading the data file' });
     }
 
     try {
       const jsonData = JSON.parse(data);
-      // Send the entire JSON data as the response
       res.json(jsonData);
     } catch (parseError) {
-      // In case of a parsing error, return an error response
       res.status(500).json({ error: 'Error parsing JSON data' });
     }
   });
